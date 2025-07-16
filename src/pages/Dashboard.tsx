@@ -40,6 +40,22 @@ const Dashboard: React.FC = () => {
       bgColor: 'from-green-50 to-teal-50'
     },
     {
+      icon: Scale,
+      title: 'Health & BMI Calculator',
+      description: 'Get health-conscious styling recommendations',
+      link: '/bmi-calculator',
+      color: 'from-orange-500 to-red-500',
+      bgColor: 'from-orange-50 to-red-50'
+    },
+    {
+      icon: Users,
+      title: 'Style Community',
+      description: 'Share looks and get inspired by others',
+      link: '/social',
+      color: 'from-indigo-500 to-purple-500',
+      bgColor: 'from-indigo-50 to-purple-50'
+    },
+    {
       icon: Palette,
       title: 'Color Palette',
       description: 'Find colors that complement your features',
@@ -91,6 +107,8 @@ const Dashboard: React.FC = () => {
               <div>
                 <p className="text-sm text-gray-600">Style Score</p>
                 <p className="text-2xl font-bold text-gray-900">
+                  {user?.bodyShape && user?.faceShape ? '95%' : user?.bodyShape || user?.faceShape ? '75%' : '45%'}
+                </p>
                   {user?.bodyShape && user?.faceShape ? '95%' : user?.bodyShape || user?.faceShape ? '75%' : '45%'}
                 </p>
               </div>
@@ -169,12 +187,47 @@ const Dashboard: React.FC = () => {
           </div>
         )}
 
+        {/* Health & Style Integration */}
+        {user?.bmi && (
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <Scale className="h-6 w-6 mr-2 text-green-500" />
+              Your Health & Style Profile
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-green-600">{user.bmi.value}</p>
+                <p className="text-sm text-gray-600">BMI ({user.bmi.category})</p>
+              </div>
+              <div className="text-center">
+                <p className="text-3xl font-bold text-blue-600">{user.bodyShape?.type || 'Unknown'}</p>
+                <p className="text-sm text-gray-600">Body Shape</p>
+              </div>
+              <div className="text-center">
+                <p className="text-3xl font-bold text-purple-600">{user.healthProfile?.fitnessLevel || 'Not Set'}</p>
+                <p className="text-sm text-gray-600">Fitness Level</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Recent Activity */}
         <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'serif' }}>
             Recent Activity
           </h2>
           <div className="space-y-4">
+            <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <Scale className="h-5 w-5 text-green-600" />
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-gray-900">BMI calculated</p>
+                <p className="text-sm text-gray-600">Health-conscious styling recommendations updated</p>
+              </div>
+              <span className="text-sm text-gray-500">1 hour ago</span>
+            </div>
+            
             <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
               <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                 <Scale className="h-5 w-5 text-green-600" />
